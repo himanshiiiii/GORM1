@@ -10,6 +10,7 @@ class BootStrap {
         createTopics()
         createResource()
         subscribeTopicsNotCreatedByUser()
+        createReadingItems()
     }
 
     void createUsers() {
@@ -163,6 +164,16 @@ class BootStrap {
                 }
 
 
+        }
+
+    }
+
+
+    void createReadingItems(){
+        List<Resource> resource=Resource.getAll()
+        resource.each {
+            ReadingItem readingItem=new ReadingItem(user: it.user,resource:it,isRead:true)
+            readingItem.save()
         }
 
     }

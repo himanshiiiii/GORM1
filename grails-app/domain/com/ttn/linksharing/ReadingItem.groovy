@@ -1,18 +1,14 @@
 package com.ttn.linksharing
 
 class ReadingItem {
-    User createdBy
-    boolean isRead
-    Resource resource
-    Date dateCreated
-    Date lastUpdated
+    Boolean isRead
 
     static belongsTo = [user:User,resource:Resource]
 
     static constraints = {
-        createdBy(nullable: false)
-        resource(blank: false, nullable: false, unique: 'user')
-        isRead(nullable:false)
+        isRead nullable: false
+        user nullable: false
+        resource nullable: false,unique: 'user'
 
 
     }
