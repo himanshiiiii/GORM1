@@ -7,17 +7,17 @@ class User {
     String password
     String firstName
     String lastName
-   // byte photo
+    byte photo
     boolean admin
     boolean active
     Date dateCreated
     Date lastUpdated
 
     String name
-    //List<Topic> topics
+    List<Topic> topics
 
     static transients = ['name']
-    static hasMany = [topics:Topic,subscriptions:Subscription,resources:Resource]/*,readingItems:ReadingItem,resources:Resource*/
+    static hasMany = [topics:Topic,subscriptions:Subscription,resources:Resource,readingItems:ReadingItem]
 
     static constraints = {
         email(unique: true,email: true,blank: false,nullable: false)
@@ -25,7 +25,7 @@ class User {
         password(blank: false,nullable: false,minSize: 5)
         firstName(blank: false,nullable: false)
         lastName(blank: false,nullable: false)
-        //photo(nullable:true,sqlType:'longBlob')
+        photo(nullable:true,sqlType:'longBlob')
         admin(nullable:true)
 
     }

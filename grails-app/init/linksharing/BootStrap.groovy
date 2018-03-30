@@ -11,8 +11,12 @@ class BootStrap {
         createResource()
         subscribeTopicsNotCreatedByUser()
         createReadingItems()
-        createReadingItemIfItDoesNotExistsInUsersReadingItem()
-        createResourceRating()
+
+//        FIX method arguments here
+        createReadingItemIfItDoesNotExistsInUsersReadingItem( "adminPortal","Java")
+
+//        FIX method arguments here
+//        createReadingItemIfItDoesNotExistsInUsersReadingItem()
 
     }
 
@@ -147,7 +151,7 @@ class BootStrap {
 
                     topics.each {
                         if (Subscription.findAllByTopicAndUser(it, user).size() == 0) {
-                            Subscription subscription = new Subscription(seriousness: Seriousness.CASUAL, user: user, topics: it)
+                            Subscription subscription = new Subscription(seriousness: Seriousness.CASUAL, user: user, topic: it)
                             if (subscription.save()) {
                                 it.addToSubscriptions(subscription)
                                 user.addToSubscriptions(subscription)
@@ -184,7 +188,6 @@ class BootStrap {
         }
 
 //question24
-
     void createReadingItemIfItDoesNotExistsInUsersReadingItem(User user,Topic topic)
     {
         topic.resources.each {
@@ -198,17 +201,6 @@ class BootStrap {
             else{
                 log.error("Error: ${readingItem.errors.getAllErrors()}")
             }
-        }
-    }
-
-
-
-//question25
-    void createResourceRating(){
-        List<Resource> resource=Resource.getAll()
-        resource.each {
-            ResourceRating resourceRating=new ResourceRating(user: it.user,resource:it,score: 3)
-            resourceRating.save()
         }
     }
 
