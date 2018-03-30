@@ -98,7 +98,7 @@ hibernate:
         use_query_cache: false
         region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
 
-    environments:
+  environments:
         development:
                  dataSource:
                     driverClassName: com.mysql.jdbc.Driver
