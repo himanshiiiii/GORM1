@@ -11,9 +11,8 @@ class BootStrap {
         createResource()
         subscribeTopicsNotCreatedByUser()
         createReadingItems()
-        question24()
         createResourceRating()
-        question27()
+        //createReadingItemIfItDoesNotExistsInUsersReadingItem()
 
     }
 
@@ -185,7 +184,7 @@ class BootStrap {
         }
 
 
-    void question24(User user,Topic topic)
+    void createReadingItemIfItDoesNotExistsInUsersReadingItem(User user,Topic topic)
     {
         topic.resources.each {
             ReadingItem readingItem=new ReadingItem(user: user,resource:it,isRead: false)
@@ -201,8 +200,12 @@ class BootStrap {
         }
     }
 
-    //question 26
+
+
+
+    //question26
     void createResourceRating(){
+
         List<User> userList=User.getAll()
         userList.each {
             User user->
@@ -227,29 +230,8 @@ class BootStrap {
 
 
 
-    void question27(){
-        List<ResourceRating> resourceRatingList=ResourceRating.getAll()
-        resourceRatingList.each {
-            ResourceRating resourceRating->
-                if(ReadingItem.findAllByUserAndResource(resourceRating.user,resourceRating.resource).size()==0) {
-                    ReadingItem readingItem = new ReadingItem(user: resourceRating.user, resource: resourceRating.resource, isRead: false)
-                    if (readingItem.save()){
-                        log.info("Saved Successfully")
-                        resourceRating.resource.addToReadingItems(readingItem)
-                        resourceRating.user.addToReadingItems(readingItem)
-                        resourceRating.resource.save()
-                        resourceRating.user.save()
-                    }
-                    else {
-                        log.error("Error:- ${readingItem.errors.getAllErrors()}")
-                    }
-                }
-        }
-    }
 
 
-
-
-        def destroy = {
+    def destroy = {
         }
     }
