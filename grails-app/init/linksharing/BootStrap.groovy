@@ -187,6 +187,7 @@ class BootStrap {
         }
 
 
+
     void question24(User user,Topic topic)
     {
         topic.resources.each {

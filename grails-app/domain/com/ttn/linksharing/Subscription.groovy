@@ -9,7 +9,7 @@ class Subscription {
 
     static constraints = {
         seriousness(nullable:false)
-        topics(nullable: false, unique:'user')
+        topic(nullable: false, unique:'user')
         user(nullable: false)
 
     }
