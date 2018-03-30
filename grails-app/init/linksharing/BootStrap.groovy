@@ -12,11 +12,9 @@ class BootStrap {
         subscribeTopicsNotCreatedByUser()
         createReadingItems()
 
-//        FIX method arguments here
-        createReadingItemIfItDoesNotExistsInUsersReadingItem( "adminPortal","Java")
+//       FIX method arguments here
+        createReadingItemIfItDoesNotExistsInUsersReadingItem()
 
-//        FIX method arguments here
-//        createReadingItemIfItDoesNotExistsInUsersReadingItem()
 
     }
 
