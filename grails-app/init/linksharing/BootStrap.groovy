@@ -11,8 +11,9 @@ class BootStrap {
         createResource()
         subscribeTopicsNotCreatedByUser()
         createReadingItems()
-        createReadingItemIfItDoesNotExistsInUsersReadingItem()
+        question24()
         createResourceRating()
+        question27()
 
     }
 
@@ -183,9 +184,8 @@ class BootStrap {
             }
         }
 
-//question24
 
-    void createReadingItemIfItDoesNotExistsInUsersReadingItem(User user,Topic topic)
+    void question24(User user,Topic topic)
     {
         topic.resources.each {
             ReadingItem readingItem=new ReadingItem(user: user,resource:it,isRead: false)
@@ -201,14 +201,49 @@ class BootStrap {
         }
     }
 
-
-
-//question25
+    //question 26
     void createResourceRating(){
-        List<Resource> resource=Resource.getAll()
-        resource.each {
-            ResourceRating resourceRating=new ResourceRating(user: it.user,resource:it,score: 3)
-            resourceRating.save()
+        List<User> userList=User.getAll()
+        userList.each {
+            User user->
+                user.readingItems.each {
+                    if(!it.isRead && ResourceRating.findAllByUser(user).size()==0){
+                        ResourceRating resourceRating=new ResourceRating(user: user, resource: it.resource,score:4)
+                        resourceRating.validate()
+                        if(resourceRating.save()){
+                            log.info("Saved Successfully")
+                            user.addToResourceRating(resourceRating)
+                            user.save()
+                        }
+                        else {
+                            log.error("${resourceRating.errors.getAllErrors()}")
+                        }
+                    }
+                }
+
+        }
+
+    }
+
+
+
+    void question27(){
+        List<ResourceRating> resourceRatingList=ResourceRating.getAll()
+        resourceRatingList.each {
+            ResourceRating resourceRating->
+                if(ReadingItem.findAllByUserAndResource(resourceRating.user,resourceRating.resource).size()==0) {
+                    ReadingItem readingItem = new ReadingItem(user: resourceRating.user, resource: resourceRating.resource, isRead: false)
+                    if (readingItem.save()){
+                        log.info("Saved Successfully")
+                        resourceRating.resource.addToReadingItems(readingItem)
+                        resourceRating.user.addToReadingItems(readingItem)
+                        resourceRating.resource.save()
+                        resourceRating.user.save()
+                    }
+                    else {
+                        log.error("Error:- ${readingItem.errors.getAllErrors()}")
+                    }
+                }
         }
     }
 
