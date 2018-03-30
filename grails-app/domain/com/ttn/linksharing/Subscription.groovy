@@ -3,6 +3,7 @@ package com.ttn.linksharing
 class Subscription {
     Date dateCreated
     Date lastUpdated
+    Topic topic
     Seriousness seriousness
     static belongsTo = [user: User, topic: Topic]
 
