@@ -11,9 +11,11 @@ class BootStrap {
         createResource()
         subscribeTopicsNotCreatedByUser()
         createReadingItems()
-        question24()
         createResourceRating()
         question27()
+
+//        FIX method arguments here
+//        createReadingItemIfItDoesNotExistsInUsersReadingItem()
 
     }
 
@@ -148,7 +150,7 @@ class BootStrap {
 
                     topics.each {
                         if (Subscription.findAllByTopicAndUser(it, user).size() == 0) {
-                            Subscription subscription = new Subscription(seriousness: Seriousness.CASUAL, user: user, topics: it)
+                            Subscription subscription = new Subscription(seriousness: Seriousness.CASUAL, user: user, topic: it)
                             if (subscription.save()) {
                                 it.addToSubscriptions(subscription)
                                 user.addToSubscriptions(subscription)
@@ -185,7 +187,7 @@ class BootStrap {
         }
 
 
-    void question24(User user,Topic topic)
+    void createReadingItemIfItDoesNotExistsInUsersReadingItem(User user,Topic topic)
     {
         topic.resources.each {
             ReadingItem readingItem=new ReadingItem(user: user,resource:it,isRead: false)
@@ -200,6 +202,7 @@ class BootStrap {
             }
         }
     }
+
 
     //question 26
     void createResourceRating(){
@@ -250,6 +253,10 @@ class BootStrap {
 
 
 
-        def destroy = {
+
+
+
+
+    def destroy = {
         }
     }
