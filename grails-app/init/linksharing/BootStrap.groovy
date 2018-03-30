@@ -11,7 +11,7 @@ class BootStrap {
         createResource()
         subscribeTopicsNotCreatedByUser()
         createReadingItems()
-        createReadingItemIfItDoesNotExistsInUsersReadingItem()
+       // createReadingItemIfItDoesNotExistsInUsersReadingItem()
         createResourceRating()
 
     }
