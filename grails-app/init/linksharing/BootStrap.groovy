@@ -162,6 +162,9 @@ class BootStrap {
             }
 
         }
+
+
+    //question 23
         void createReadingItems() {
             List<User> users = User.getAll()
             users.each {
